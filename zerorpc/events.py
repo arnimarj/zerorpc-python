@@ -196,6 +196,9 @@ class Event(object):
 
     @staticmethod
     def unpack(blob):
+        if isinstance(blob, memoryview):
+            blob = b''.join(blob)
+
         unpacker = msgpack.Unpacker(encoding='utf-8')
         unpacker.feed(blob)
         unpacked_msg = unpacker.unpack()
